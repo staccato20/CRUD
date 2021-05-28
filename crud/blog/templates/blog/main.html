@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block bord %}
+<section id="services">
+    <div class="container px-4 px-lg-5">
+        <h2 class="text-center mt-0"></h2>
+        <hr class="divider" />
+        {% for blogs in blogs.all %}
+        <h1>제목 :<a href="{% url 'detail' blogs.id %}">{{ blogs.title }}</a></h1>
+        <p>작성자 : {{ blogs.writer }}</p>
+        <p>작성 일자 및 시간 : {{ blogs.pub_date }}</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
