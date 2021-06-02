@@ -11,6 +11,18 @@
         <p>내용 : {{ blog.content }}</p>
         <a href="{% url 'edit' blog.id %}">수정하기</a>
         <a href="{% url 'delete' blog.id %}">삭제하기</a>
+        <br>
+        <br>
+        <br>
+        <h2>댓글</h2>
+        {% for comment in blog.comments.all %}
+             <p>{{comment.text}}</p>
+        {% endfor %}
+        <form method="POST" action="{% url 'detail' blog.id %}">
+            {% csrf_token %}
+            <p>{{ form.as_p }}</p>
+            <input type="submit" value="submit">
+        </form>
     </div>
 </section>
 {% endblock %}
