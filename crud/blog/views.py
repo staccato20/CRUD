@@ -1,27 +1,70 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .models import Blog
-from .forms import CreateForm, CommentForm
+from .models import Blog, Hashtag
+from .forms import CreateForm, CommentForm, HashtagForm
 
 # Create your views here.
 
 def main(request):
     blogs = Blog.objects
-    return render(request, 'blog/main.html', {'blogs':blogs})
+    hashtags = Hashtag.objects
+    return render(request, 'blog/main.html', {'blogs':blogs, 'hashtags':hashtags})
 
 def write(request):
     return render(request, 'blog/write.html')
 
-def create(request):
+#왤까... 이게 된 이유가... 이게 원래꺼(m2m 안됐던거임)
+# def create(request, blog=None):
+#    if request.method == "POST":
+#       form = CreateForm(request.POST, instance=blog)
+#        if form.is_valid():
+#            blog = form.save(commit=False)
+#            form.save_m2m()
+#            blog.pub_date = timezone.datetime.now()
+#            blog.save()
+#            return redirect('main')
+#    else:
+#        form = CreateForm(instance=blog)
+#        return render(request, 'blog/write.html', {'form':form})
+
+#def blogform(request, blog=None):
+#    if request.method == 'POST':
+#        form = CreateForm(request.POST, instance=blog)
+#        if form.is_valid():
+#            blog = form.save(commit=False)
+#            blog.pub_date = timezone.datetime.now()
+#            blog.save()
+#            form.save_m2m()
+#            return redirect('main')
+#    else:
+#        form = CreateForm(instance=blog)
+#        return render(request, 'blog/write.html', {'form':form})
+
+def create(request, blog=None):
     if request.method == "POST":
-        form = CreateForm(request.POST)
+        form = CreateForm(request.POST, instance=blog)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.pub_date = timezone.now()
-            form.save()
+            blog = form.save(commit=False)
+            blog.pub_date = timezone.datetime.now()
+            blog.save()
+            form.save_m2m()
             return redirect('main')
     else:
-        form = CreateForm
+        form = CreateForm(instance=blog)
+        return render(request, 'blog/write.html', {'form':form})
+
+
+def blogform(request, blog=None):
+    if request.method == 'POST':
+        form = CreateForm(request.POST, instance=blog)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.pub_date = timezone.datetime.now()
+            blog.save()
+            form.save_m2m()
+            return redirect('main')
+    else:
+        form = CreateForm(instance=blog)
         return render(request, 'blog/write.html', {'form':form})
 
 def base(request):
@@ -58,3 +101,25 @@ def detail(request, id):
     else:
         form=CommentForm()
         return render(request, 'blog/detail.html', {'blog':blog, 'form':form})
+
+# 해시태그 함수
+def hashtagform(request, hashtag=None):
+    if request.method == 'POST':
+        form = HashtagForm(request.POST, instance=hashtag)
+        if form.is_valid():
+            hashtag = form.save(commit=False)
+            if Hashtag.objects.filter(name=form.cleaned_data['name']):
+                form = HashtagForm()
+                error_message = "이미 존재하는 해시태그 입니다."
+                return render(request, 'blog/hashtag.html', {'form':form, "error_message": error_message})
+            else:
+                hashtag.name = form.cleaned_data['name']
+                hashtag.save()
+            return redirect('main')
+    else:
+        form = HashtagForm(instance=hashtag)
+        return render(request, 'blog/hashtag.html', {'form':form})
+
+def search(request, hashtag_id):
+    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    return render(request, 'blog/search.html', {'hashtag':hashtag})

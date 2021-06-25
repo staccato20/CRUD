@@ -2,15 +2,29 @@
 {% load static %}
 
 {% block bord %}
+<div class="row gx-4 gx-lg-5 justify-content-center">
 <section id="services">
     <div class="container px-4 px-lg-5">
         <h2 class="text-center mt-0"></h2>
         <hr class="divider" />
+        <!-- Searcher -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hashtag 검색
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+              {% for hashtag in hashtags.all %}
+              <a class="dropdown-item" href="{% url 'search' hashtag.id %}">{{ hashtag.name }}</a>
+              {% endfor %}
+        </div>
+            <hr><br>
         {% for blogs in blogs.all %}
         <h1>제목 :<a href="{% url 'detail' blogs.id %}">{{ blogs.title }}</a></h1>
         <p>작성자 : {{ blogs.writer }}</p>
         <p>작성 일자 및 시간 : {{ blogs.pub_date }}</p>
         {% endfor %}
-    </div>
+      </div>
 </section>
+</div>
+<br>
 {% endblock %}

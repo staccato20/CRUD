@@ -9,6 +9,10 @@
         <p>작성 일자 및 시간 : {{ blog.pub_date }}</p>
         <p>글쓴이 : {{ blog.writer }}</p>
         <p>내용 : {{ blog.content }}</p>
+        {% for hashtag in blog.hashtags.all %}
+          <span>{{ hashtag.name }}</span>
+        {% endfor %}
+        <br>
         <a href="{% url 'edit' blog.id %}">수정하기</a>
         <a href="{% url 'delete' blog.id %}">삭제하기</a>
         <br>

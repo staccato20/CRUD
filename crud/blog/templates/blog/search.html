@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block bord %}
+<!-- Main Content -->
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    {% for blog in hashtag.blog_set.all %}
+      <div class="post-preview">
+        <h1>제목 :<a href="{% url 'detail' blog.id %}">{{ blog.title }}</a></h1>
+        <p>작성자 : {{ blog.writer }}</p>
+        <p>작성 일자 및 시간 : {{ blog.pub_date }}</p>
+      </div>
+      <hr>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<br><br>
+{% endblock %}
