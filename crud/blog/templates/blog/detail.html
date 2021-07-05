@@ -11,6 +11,8 @@
         <p>내용 : {{ blog.content }}</p>
         {% if blog.image %}
             <img src="{{ blog.image.url }}" width="250" height="250" alt="Card image cap">
+        <br>
+        <br>
         {% endif %}
         <br>
         {% for hashtag in blog.hashtags.all %}

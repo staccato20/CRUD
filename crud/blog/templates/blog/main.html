@@ -22,10 +22,12 @@
         <h1>제목 :<a href="{% url 'detail' blogs.id %}">{{ blogs.title }}</a></h1>
         <p>작성자 : {{ blogs.writer }}</p>
         <p>작성 일자 및 시간 : {{ blogs.pub_date }}</p>
-        {% endfor %}
-        {% if posts.image %}
+        {% if blogs.image %}
             <img src="{{ blogs.image.url }}" width="250" height="250" alt="Card image cap">
         {% endif %}
+        <br>
+        <br>
+        {% endfor %}
         <hr>
       </div>
 </section>

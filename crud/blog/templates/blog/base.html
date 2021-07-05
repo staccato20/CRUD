@@ -25,6 +25,13 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'main' %}">main</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'create' %}">write</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'hashtag' %}">Add hashtag</a></li>
+                        {% if user.is_active %}
+                           <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">로그아웃</a></li>
+                           <li class="nav-item"><a class="nav-link">{{ user.username }}님 안녕하세요.</a></li>
+                        {% else %}
+                           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">로그인</a></li>
+                           <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">회원가입</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

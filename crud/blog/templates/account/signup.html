@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block bord %}
+   <form method = "post" action="{% url 'signup' %}">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <button type="submit">가입</button>
+   </form>
+{% endblock %}
