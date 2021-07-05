@@ -9,6 +9,10 @@
         <p>작성 일자 및 시간 : {{ blog.pub_date }}</p>
         <p>글쓴이 : {{ blog.writer }}</p>
         <p>내용 : {{ blog.content }}</p>
+        {% if blog.image %}
+            <img src="{{ blog.image.url }}" width="250" height="250" alt="Card image cap">
+        {% endif %}
+        <br>
         {% for hashtag in blog.hashtags.all %}
           <span>{{ hashtag.name }}</span>
         {% endfor %}

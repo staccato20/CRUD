@@ -42,7 +42,7 @@ def write(request):
 
 def create(request, blog=None):
     if request.method == "POST":
-        form = CreateForm(request.POST, instance=blog)
+        form = CreateForm(request.POST, request.FILES, instance=blog)
         if form.is_valid():
             blog = form.save(commit=False)
             blog.pub_date = timezone.datetime.now()

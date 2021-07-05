@@ -8,6 +8,7 @@ class Blog(models.Model):
     writer = models.CharField(max_length=100, default='누구신지?')
     pub_date = models.DateTimeField('date published')
     content = models.TextField()
+    image = models.ImageField(upload_to='images/', blank=True)
     hashtags = models.ManyToManyField('Hashtag', blank=True)
 
     def __str__(self):
