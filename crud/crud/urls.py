@@ -31,4 +31,6 @@ urlpatterns = [
     path('hashtag/', blog.views.hashtagform, name='hashtag'),
     path('<int:hashtag_id>/search/', blog.views.search, name='search'),
     path('account/', include('account.urls')),
+    path('like/', blog.views.video_like, name='video_like'),
+    path('bmkapp/', include('bmkapp.urls')),#북마크앱 url
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

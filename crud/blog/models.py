@@ -9,6 +9,10 @@ class Blog(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True)
     hashtags = models.ManyToManyField('Hashtag', blank=True)
+    likes_user = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='likes_user')
+
+    def count_likes_user(self): # total likes_user
+        return self.likes_user.count()
 
     def __str__(self):
         return self.title

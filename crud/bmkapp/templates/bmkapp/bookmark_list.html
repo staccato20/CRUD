@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookmark List</title>
+</head>
+<body>
+    <table>
+        <a href="{% url 'bookmark_create' %}">북마크 생성하기</a>
+        {% for object in object_list %}
+        <tr>
+            <td>{{ object.id }}</td>
+            <td><a href="{% url 'bookmark_detail' pk=object.id %}">{{ object.site_name }}</a></td>
+            <td><a href="{{ object.url }}" target="_blank"></a>{{ object.url }}</td>
+            <td><a href="{% url 'bookmark_update' pk=object.id %}">수정하기</a></td>
+            <td><a href="{% url 'bookmark_delete' pk=object.id %}">삭제하기</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

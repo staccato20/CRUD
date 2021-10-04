@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
+    'bmkapp.apps.BmkappConfig'
 ]
 
 AUTH_USER_MODEL = 'account.CustomUser'
